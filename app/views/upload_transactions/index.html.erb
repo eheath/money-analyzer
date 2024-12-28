@@ -1,0 +1,7 @@
+upload transactions form
+<div class='row'>
+<%= form_tag({action: :create}, multipart: true) do |f| %>
+  <%= file_field_tag 'csv_file' %>
+  <%= submit_tag %>
+<% end %>
+</div>
