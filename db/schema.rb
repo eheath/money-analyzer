@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_28_142143) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_29_171956) do
+  create_table "tag_rules", force: :cascade do |t|
+    t.integer "tag_id"
+    t.string "search_string"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_tag_rules_on_tag_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.integer "user_id"
     t.string "tag", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tag"], name: "index_tags_on_tag", unique: true
+    t.index ["user_id", "tag"], name: "index_tags_on_user_id_and_tag", unique: true
     t.index ["user_id"], name: "index_tags_on_user_id"
   end
 

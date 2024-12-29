@@ -1,4 +1,9 @@
 <div class="row">
+  <% current_user.tags.each do |tag| %>
+    <div class='col-sm-2'><%= tag.tag %> :: <%= number_to_currency(current_user.total_by(tag.tag)) %></div>
+  <% end %>
+</div>
+<div class="row">
   <table class="table table-striped">
     <thead>
       <tr>
