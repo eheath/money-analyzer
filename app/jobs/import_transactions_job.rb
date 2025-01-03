@@ -7,7 +7,7 @@ class ImportTransactionsJob < ApplicationJob
     SmarterCSV.process(file_path).each do |hash|
       user.user_transactions.create({
         transaction_date: Date.parse(hash[:date]),
-        description: hash[:description],
+        description: hash[:description].squish,
         debit: hash[:debit],
         credit: hash[:credit]
       })

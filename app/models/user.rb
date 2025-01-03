@@ -15,6 +15,19 @@ class User < ApplicationRecord
     end
   end
 
+  def tag_totals
+    totals = {}
+    user_transactions.each do |trans|
+      if trans.tags.present?
+        trans.tags.each do |tag|
+          totals[tag.id] = 0 if totals[tag.id].blank?
+          totals[tag.id] += [trans.debit.to_f, trans.credit.to_f].max.abs
+        end
+      end
+    end
+    return totals
+  end
+
   def total_by(tag)
     tag = Tag.find_by_tag(tag)
     total = 0.00

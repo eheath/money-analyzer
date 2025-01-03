@@ -1,7 +1,16 @@
-<div class="row">
-  <% current_user.tags.each do |tag| %>
+<h2>Tag Totals</h2>
+<%= turbo_frame_tag 'user_tags' do %>
+  <% current_user.tag_totals.sort_by{ |_key, value| value }.reverse.to_h.each do |tag_id, total| %>
+    <% tag = Tag.find(tag_id) %>
     <%= turbo_frame_tag tag do %>
-      <div class='col-sm-2'><%= tag.tag %> :: <%= number_to_currency(current_user.total_by(tag.tag)) %></div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="btn-group mb-3" role="group" aria-label="Tag Group">
+            <button type="button" class="btn btn-primary"><%= tag.tag %></button>
+            <button type="button" class="btn btn-primary active"><%= number_to_currency(total) %></button>
+          </div>
+        </div>
+      </div>
     <% end %>
   <% end %>
-</div>
+<% end %>

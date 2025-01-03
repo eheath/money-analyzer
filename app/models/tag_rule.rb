@@ -1,5 +1,10 @@
 class TagRule < ApplicationRecord
   belongs_to :tag
+  before_save :squish_search_string
+
+  def squish_search_string
+    self.search_string = self.search_string.squish
+  end
 
   def apply
     tag.user.user_transactions.each do |t|

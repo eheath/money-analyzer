@@ -1,0 +1,17 @@
+<tr>
+  <td><%= user_transaction.transaction_date %></td>
+  <td><%= user_transaction.description %></td>
+  <td><%= number_to_currency(user_transaction.debit) %></td>
+  <td><%= number_to_currency(user_transaction.credit) %></td>
+  <td>
+    <% if user_transaction.tags.present? %>
+      <% user_transaction.tags.each do |tag| %><%= tag.tag %><% end %>
+    <% else %>
+    <%= link_to "Tag",
+                new_transaction_tag_path(transaction_id: user_transaction.id),
+                class: 'btn btn-primary btn-sm tag-modal',
+                data: { turbo_frame: 'modal_body' },
+                onclick: 'showTagModal()' %>
+    <% end %>
+  </td>
+</tr>

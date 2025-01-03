@@ -13,7 +13,7 @@ class TransactionTagsController < ApplicationController
       tag_rule = TagRule.find_or_create_by(tag_id: tag.id, search_string: params[:search_string])
     end
     if tag_rule.present?
-      current_user.tag_transactions(tag, tag_rule)
+      tag_rule.apply
     else
       TransactionTag.create(user_transaction_id: params[:transaction_id], tag_id: tag.id)
     end
