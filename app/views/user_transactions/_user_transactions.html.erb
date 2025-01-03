@@ -1,0 +1,41 @@
+<div class="row">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Debit</th>
+        <th>Credit</th>
+        <th>Tags</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% current_user.user_transactions.order('transaction_date desc').each do |trans| %>
+        <%= turbo_frame_tag trans do %>
+          <tr>
+            <td><%= trans.transaction_date %></td>
+            <td><%= trans.description %></td>
+            <td><%= number_to_currency(trans.debit) %></td>
+            <td><%= number_to_currency(trans.credit) %></td>
+            <td>
+              <% if trans.tags.present? %>
+                <% trans.tags.each do |tag| %><%= tag.tag %><% end %>
+              <% else %>
+              <%= link_to "Tag",
+                          new_transaction_tag_path(transaction_id: trans.id),
+                          class: 'btn btn-primary btn-sm tag-modal',
+                          data: { turbo_frame: 'modal_body' },
+                          onclick: 'showTagModal()' %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<script>
+<%#   document.addEventListener('DOMContentLoaded', function() {
+    tagButtonsClickListen();
+  }); %>
+</script>

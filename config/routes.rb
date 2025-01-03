@@ -18,4 +18,6 @@ Rails.application.routes.draw do
 
   resources :upload_transactions
   resources :user_transactions
+  resources :user_tags
+  resources :transaction_tags
 end

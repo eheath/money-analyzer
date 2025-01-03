@@ -5,11 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :user_transactions
   has_many :tags
+  has_many :transaction_tags, through: :user_transactions
 
-  def tag_transactions(tag, substr)
-    tag = tags.find_or_create_by(tag: tag)
+  def tag_transactions(tag, tag_rule)
     user_transactions.each do |trans|
-      if trans.description =~ /#{substr}/i
+      if trans.description =~ /#{tag_rule.search_string}/i
         trans.transaction_tags.create(tag: tag)
       end
     end
