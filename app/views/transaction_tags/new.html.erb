@@ -3,11 +3,23 @@
   Amount: <%= number_to_currency(@user_transaction.debit.present? ? @user_transaction.debit : @user_transaction.credit) %><br/>
   Description: <%= @user_transaction.description %>
 
+  <% if @tag && @tag.errors.any? %>
+    <div class="alert alert-danger mt-3">
+      <%= @tag.errors.full_messages.to_sentence.capitalize %>
+    </div>
+  <% end %>
+
+  <% if @transaction_tag && @transaction_tag.errors.any? %>
+    <div class="alert alert-danger mt-3">
+      <%= @transaction_tag.errors.full_messages.to_sentence.capitalize %>
+    </div>
+  <% end %>
+
   <%= simple_form_for @current_user.transaction_tags.new do |f| %>
     <%= hidden_field_tag 'transaction_id', @user_transaction.id %>
     <%= f.input :tag %>
     <%= label_tag 'Rule Text' %>
     <%= text_field_tag 'search_string', @user_transaction.description, class: 'form-control string optional' %>
-    <%= f.button :submit, { class: 'btn-success mt-5', onclick: 'newTagModal.hide()'} %>
+    <%= f.button :submit, { class: 'btn-success mt-5' } %>
   <% end %>
 <% end %>

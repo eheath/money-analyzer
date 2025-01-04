@@ -36,13 +36,14 @@
 </div>
 
 <script>
+  const newTagModal = new bootstrap.Modal(document.getElementById('new-tag-modal'));
+
   var showNewTagModal = function() {
-    console.log('foo bar')
-    var newTagModal = new bootstrap.Modal(document.getElementById('new-tag-modal'));
+    console.info('show?')
     newTagModal.show();
   }
   var hideNewTagModal = function () {
-    var newTagModal = new bootstrap.Modal(document.getElementById('new-tag-modal'));
+    console.info('hide?')
     newTagModal.hide();
   }
 </script>
