@@ -8,7 +8,7 @@
       <% user_transaction.tags.each do |tag| %><%= tag.tag %><% end %>
     <% else %>
     <%= link_to "Tag",
-                new_transaction_tag_path(transaction_id: user_transaction.id),
+                new_transaction_tag_path(transaction_id: user_transaction.id, tagged_untagged: params[:tagged_untagged]),
                 class: 'btn btn-primary btn-sm tag-modal',
                 data: { turbo_frame: 'modal_body' },
                 onclick: 'showNewTagModal()' %>

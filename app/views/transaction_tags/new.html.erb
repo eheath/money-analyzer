@@ -17,6 +17,7 @@
 
   <%= simple_form_for @current_user.transaction_tags.new do |f| %>
     <%= hidden_field_tag 'transaction_id', @user_transaction.id %>
+    <%= hidden_field_tag 'tagged_untagged', @tagged_untagged %>
     <%= f.input :tag %>
     <%= label_tag 'Rule Text' %>
     <%= text_field_tag 'search_string', @user_transaction.description, class: 'form-control string optional' %>

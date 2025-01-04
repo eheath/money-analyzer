@@ -4,7 +4,29 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-sm-9">
+  <div class="col-sm-12">
+    <%= turbo_frame_tag 'toggle-tagged-type' do %>
+      <div class="btn-group" role="group">
+        <%= link_to 'Tagged',
+            user_transactions_path(tagged_untagged: 'tagged'),
+            class: 'btn btn-primary -tagged-not-tagged',
+            data: { turbo_frame: 'user_transactions' } %>
+
+        <%= link_to 'All',
+            user_transactions_path,
+            class: 'btn btn-primary -tagged-not-tagged',
+            data: { turbo_frame: 'user_transactions' } %>
+
+        <%= link_to 'Untagged',
+            user_transactions_path(tagged_untagged: 'untagged'),
+            class: 'btn btn-primary -tagged-not-tagged',
+              data: { turbo_frame: 'user_transactions' } %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-9 table-wrapper">
     <%= turbo_frame_tag 'user_transactions' do %>
       <%= render 'user_transactions' %>
     <% end %>
@@ -46,4 +68,9 @@
     console.info('hide?')
     newTagModal.hide();
   }
+
+  $('.-tagged-not-tagged').click(function () {
+    $(this).siblings().removeClass('active');
+    $(this).addClass('active');
+  });
 </script>

@@ -1,5 +1,16 @@
 <h2>Tag Totals</h2>
 <%= turbo_frame_tag 'user_tags' do %>
+  <% untagged_total = current_user.user_transactions.untagged.map{ |ut| [ut.debit.to_f, ut.credit.to_f].max.abs }.inject(0) { |sum, value| sum += value } %>
+  <%= turbo_frame_tag 'untagged_total' do %>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="btn-group mb-3" role="group" aria-label="Tag Group">
+            <button type="button" class="btn btn-primary">Untagged</button>
+            <button type="button" class="btn btn-primary active"><%= number_to_currency(untagged_total) %></button>
+          </div>
+      </div>
+    </div>
+  <% end %>
   <% current_user.tag_totals.sort_by{ |_key, value| value }.reverse.to_h.each do |tag_id, total| %>
     <% tag = Tag.find(tag_id) %>
     <%= turbo_frame_tag tag do %>
