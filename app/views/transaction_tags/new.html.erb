@@ -1,7 +1,8 @@
 <%= turbo_frame_tag 'modal_body' do %>
   Transaction Details: <br/>
+  Date: <%= @user_transaction.transaction_date %><br/>
   Amount: <%= number_to_currency(@user_transaction.debit.present? ? @user_transaction.debit : @user_transaction.credit) %><br/>
-  Description: <%= @user_transaction.description %>
+  Description: <%= @user_transaction.description %><br/>
 
   <% if @tag && @tag.errors.any? %>
     <div class="alert alert-danger mt-3">
@@ -14,7 +15,7 @@
       <%= @transaction_tag.errors.full_messages.to_sentence.capitalize %>
     </div>
   <% end %>
-
+  <br/>
   <%= simple_form_for @current_user.transaction_tags.new do |f| %>
     <%= hidden_field_tag 'transaction_id', @user_transaction.id %>
     <%= hidden_field_tag 'tagged_untagged', @tagged_untagged %>
