@@ -17,6 +17,7 @@ class TransactionTagsController < ApplicationController
     else
       TransactionTag.create(user_transaction_id: params[:transaction_id], tag_id: tag.id)
     end
+    # create_notice
     respond_to do |format|
       format.html
       format.turbo_stream

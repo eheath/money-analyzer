@@ -8,6 +8,6 @@
     <%= f.input :tag %>
     <%= label_tag 'Rule Text' %>
     <%= text_field_tag 'search_string', @user_transaction.description, class: 'form-control string optional' %>
-    <%= f.button :submit, class: 'btn-success mt-5' %>
+    <%= f.button :submit, { class: 'btn-success mt-5', onclick: 'newTagModal.hide()'} %>
   <% end %>
 <% end %>
